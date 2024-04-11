@@ -101,7 +101,7 @@ io.vertx.VertxEventBusHandlerUnregistered {
 </details>
 
 #### HTTP Server Related Events
-All the event bus related events are categorised under the category `VertxHttpServer`, the below command should output
+All the HTTP Server related events are categorised under the category `VertxHttpServer`, the below command should output
 all the relevant events in your terminal.
 
 ```shell
@@ -163,7 +163,7 @@ io.vertx.server.VertxHttpServerRequestEnd {
 </details>
 
 #### TCP Server Related Events
-All the event bus related events are categorised under the category `VertxNetServer`, the below command should output
+All the TCP Server related events are categorised under the category `VertxNetServer`, the below command should output
 all the relevant events in your terminal.
 
 ```shell
