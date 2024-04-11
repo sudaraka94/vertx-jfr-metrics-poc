@@ -2,10 +2,10 @@ package io.vertx.jfr.impl;
 
 import io.vertx.core.spi.metrics.EventBusMetrics;
 import io.vertx.jfr.impl.VertxEventBusMetrics.HandlerMetric;
-import io.vertx.jfr.impl.event.VertxEventBusHandlerRegistered;
-import io.vertx.jfr.impl.event.VertxEventBusHandlerUnregistered;
-import io.vertx.jfr.impl.event.VertxEventBusMessageReceived;
-import io.vertx.jfr.impl.event.VertxEventBusMessageSent;
+import io.vertx.jfr.impl.events.eventbus.VertxEventBusHandlerRegistered;
+import io.vertx.jfr.impl.events.eventbus.VertxEventBusHandlerUnregistered;
+import io.vertx.jfr.impl.events.eventbus.VertxEventBusMessageReceived;
+import io.vertx.jfr.impl.events.eventbus.VertxEventBusMessageSent;
 
 public class VertxEventBusMetrics implements EventBusMetrics<HandlerMetric> {
     @Override

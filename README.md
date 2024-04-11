@@ -17,15 +17,22 @@ mvn clean package
 ```shell
 java -XX:StartFlightRecording:filename=sm.jfr -jar ./target/vertx-jfr-metrics-1.0-SNAPSHOT-app.jar
 ```
-- Reading the events from the file
+### Reading JFR Events
+In the POC JFR events are categorised for the ease of reference. All the vertx related events are categorised under 
+the category `Vertx`.
+
+
+#### Event Bus Related Events
+All the event bus related events are categorised under the category `VertxEventBus`, the below command should output 
+all the relevant events in your terminal.
+
 ```shell
 jfr print --categories VertxEventBus sm.jfr
 ```
 
-All the events emitted by the implementation are categorised under the category `VertxEventBus` and
-the above command should output all the relevant events in your terminal.
+<details>
+<summary>Example output</summary>
 
-Example output,
 ```text
 io.vertx.VertxEventBusHandlerRegistered {
   startTime = 19:34:17.634 (2024-04-10)
@@ -91,8 +98,122 @@ io.vertx.VertxEventBusHandlerUnregistered {
   ]
 }
 ```
+</details>
 
-In case you want to output the events as a json, simply pas the `--json` flag to the command,
+#### HTTP Server Related Events
+All the event bus related events are categorised under the category `VertxHttpServer`, the below command should output
+all the relevant events in your terminal.
+
 ```shell
-jfr print --categories VertxEventBus --json sm.jfr
+jfr print --categories VertxHttpServer sm.jfr
 ```
+
+<details>
+<summary>Example output</summary>
+
+```text
+io.vertx.server.VertxHttpServerRequestBegin {
+  startTime = 01:05:51.560 (2024-04-12)
+  uri = "/"
+  method = "GET"
+  eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
+  stackTrace = [
+    io.vertx.jfr.impl.VertxHttpServerMetrics.requestBegin(VertxNetServerMetrics$NetServerSocketMetric, HttpRequest) line: 22
+    io.vertx.jfr.impl.VertxHttpServerMetrics.requestBegin(Object, HttpRequest) line: 15
+    io.vertx.core.http.impl.Http1xServerRequest.reportRequestBegin() line: 603
+    io.vertx.core.http.impl.Http1xServerRequest.handleBegin(boolean) line: 155
+    io.vertx.core.http.impl.Http1xServerConnection.handleMessage(Object) line: 182
+    ...
+  ]
+}
+
+io.vertx.server.VertxHttpServerResponseEnd {
+  startTime = 01:05:51.568 (2024-04-12)
+  uri = "/"
+  method = "GET"
+  statusCode = 200
+  bytesWritten = 23
+  eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
+  stackTrace = [
+    io.vertx.jfr.impl.VertxHttpServerMetrics.responseEnd(VertxHttpServerMetrics$RequestMetric, HttpResponse, long) line: 63
+    io.vertx.jfr.impl.VertxHttpServerMetrics.responseEnd(Object, HttpResponse, long) line: 15
+    io.vertx.core.http.impl.Http1xServerConnection.reportResponseComplete() line: 331
+    io.vertx.core.http.impl.Http1xServerConnection.responseComplete() line: 263
+    io.vertx.core.http.impl.Http1xServerConnection$1.write() line: 249
+    ...
+  ]
+}
+
+io.vertx.server.VertxHttpServerRequestEnd {
+  startTime = 01:05:51.570 (2024-04-12)
+  uri = "/"
+  method = "GET"
+  bytesRead = 0
+  eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
+  stackTrace = [
+    io.vertx.jfr.impl.VertxHttpServerMetrics.requestEnd(VertxHttpServerMetrics$RequestMetric, HttpRequest, long) line: 33
+    io.vertx.jfr.impl.VertxHttpServerMetrics.requestEnd(Object, HttpRequest, long) line: 15
+    io.vertx.core.http.impl.Http1xServerRequest.reportRequestComplete() line: 595
+    io.vertx.core.http.impl.Http1xServerRequest.onEnd() line: 577
+    io.vertx.core.http.impl.Http1xServerRequest.handleEnd() line: 571
+    ...
+  ]
+}
+```
+</details>
+
+#### TCP Server Related Events
+All the event bus related events are categorised under the category `VertxNetServer`, the below command should output
+all the relevant events in your terminal.
+
+```shell
+jfr print --categories VertxNetServer sm.jfr
+```
+
+<details>
+<summary>Example output</summary>
+
+```text
+io.vertx.server.VertxNetServerConnected {
+  startTime = 01:05:51.555 (2024-04-12)
+  remoteName = "127.0.0.1"
+  host = "127.0.0.1"
+  port = 59173
+  path = N/A
+  eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
+  stackTrace = [
+    io.vertx.jfr.impl.VertxNetServerMetrics.connected(SocketAddress, String) line: 19
+    io.vertx.jfr.impl.VertxNetServerMetrics.connected(SocketAddress, String) line: 10
+    io.vertx.core.http.impl.HttpServerWorker.configureHttp1Handler(ChannelPipeline, SslChannelProvider, SSLHelper) line: 324
+    io.vertx.core.http.impl.Http1xUpgradeToH2CHandler.channelRead(ChannelHandlerContext, Object) line: 126
+    io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Object) line: 444
+    ...
+  ]
+}
+
+io.vertx.server.VertxNetServerConnected {
+startTime = 01:05:51.573 (2024-04-12)
+remoteName = "127.0.0.1"
+host = "127.0.0.1"
+port = 59173
+path = N/A
+bytesWritten = 23
+bytesRead = 0
+eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
+stackTrace = [
+io.vertx.jfr.impl.VertxNetServerMetrics.disconnected(VertxNetServerMetrics$NetServerSocketMetric, SocketAddress) line: 32
+io.vertx.jfr.impl.VertxNetServerMetrics.disconnected(Object, SocketAddress) line: 10
+io.vertx.core.net.impl.ConnectionBase.handleClosed() line: 384
+io.vertx.core.http.impl.Http1xServerConnection.handleClosed() line: 538
+io.vertx.core.net.impl.VertxHandler.channelInactive(ChannelHandlerContext) line: 143
+...
+]
+}
+```
+</details>
+
+> [!TIP]
+> In case you want to output the events as a json, simply pas the `--json` flag to the command,
+> ```shell
+> jfr print --categories VertxEventBus --json sm.jfr
+> ```
