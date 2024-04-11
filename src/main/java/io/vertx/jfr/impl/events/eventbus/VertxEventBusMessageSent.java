@@ -1,4 +1,4 @@
-package io.vertx.jfr.impl.event;
+package io.vertx.jfr.impl.events.eventbus;
 
 import jdk.jfr.Category;
 import jdk.jfr.Description;
@@ -6,10 +6,10 @@ import jdk.jfr.Event;
 import jdk.jfr.Label;
 import jdk.jfr.Name;
 
-@Name("io.vertx.VertxEventBusMessageSent")
+@Name("io.vertx.eventbus.VertxEventBusMessageSent")
 @Label("EventBus Message Sent")
 @Description("Signals when a message is being sent via Vertx Event Bus")
-@Category({ "VertxEventBus" })
+@Category({ "Vertx", "VertxEventBus" })
 public class VertxEventBusMessageSent extends Event {
     @Label("The address")
     public String address;
