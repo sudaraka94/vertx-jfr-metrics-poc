@@ -192,22 +192,22 @@ io.vertx.server.VertxNetServerConnected {
 }
 
 io.vertx.server.VertxNetServerConnected {
-startTime = 01:05:51.573 (2024-04-12)
-remoteName = "127.0.0.1"
-host = "127.0.0.1"
-port = 59173
-path = N/A
-bytesWritten = 23
-bytesRead = 0
-eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
-stackTrace = [
-io.vertx.jfr.impl.VertxNetServerMetrics.disconnected(VertxNetServerMetrics$NetServerSocketMetric, SocketAddress) line: 32
-io.vertx.jfr.impl.VertxNetServerMetrics.disconnected(Object, SocketAddress) line: 10
-io.vertx.core.net.impl.ConnectionBase.handleClosed() line: 384
-io.vertx.core.http.impl.Http1xServerConnection.handleClosed() line: 538
-io.vertx.core.net.impl.VertxHandler.channelInactive(ChannelHandlerContext) line: 143
-...
-]
+    startTime = 01:05:51.573 (2024-04-12)
+    remoteName = "127.0.0.1"
+    host = "127.0.0.1"
+    port = 59173
+    path = N/A
+    bytesWritten = 23
+    bytesRead = 0
+    eventThread = "vert.x-eventloop-thread-0" (javaThreadId = 34)
+    stackTrace = [
+    io.vertx.jfr.impl.VertxNetServerMetrics.disconnected(VertxNetServerMetrics$NetServerSocketMetric, SocketAddress) line: 32
+    io.vertx.jfr.impl.VertxNetServerMetrics.disconnected(Object, SocketAddress) line: 10
+    io.vertx.core.net.impl.ConnectionBase.handleClosed() line: 384
+    io.vertx.core.http.impl.Http1xServerConnection.handleClosed() line: 538
+    io.vertx.core.net.impl.VertxHandler.channelInactive(ChannelHandlerContext) line: 143
+    ...
+    ]
 }
 ```
 </details>
